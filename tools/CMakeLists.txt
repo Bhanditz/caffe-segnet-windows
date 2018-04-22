@@ -21,7 +21,17 @@ foreach(source ${srcs})
 
   # restore output name without suffix
   if(name MATCHES "caffe.bin")
-    set_target_properties(${name} PROPERTIES OUTPUT_NAME caffe)
+    if(BUILD_SHARED_LIBS)
+      set_target_properties(${name} PROPERTIES OUTPUT_NAME caffe_bin) # we cannot overwrite caffe.lib
+    else()
+      set_target_properties(${name} PROPERTIES OUTPUT_NAME caffe)
+    endif()
+  endif()
+
+  if(BUILD_SHARED_LIBS)
+    target_compile_options(${name} PRIVATE "-DCAFFE_PROTO_API_=__declspec(dllimport)") # MSVC
+  else()
+    target_compile_options(${name} PRIVATE -DCAFFE_PROTO_API_)
   endif()
 
   # Install

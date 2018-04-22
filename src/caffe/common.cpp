@@ -23,7 +23,12 @@ int64_t cluster_seedgen(void) {
   if (f)
     fclose(f);
 
+  // https://github.com/Rprop/caffe-segnet-windows
+#if !defined(WIN32) && !defined(_WINDOWS)
   pid = getpid();
+#else
+  pid = time(NULL) >> 2;
+#endif
   s = time(NULL);
   seed = abs(((s * 181) * ((pid - 83) * 359)) % 104729);
   return seed;
@@ -35,8 +40,11 @@ void GlobalInit(int* pargc, char*** pargv) {
   ::gflags::ParseCommandLineFlags(pargc, pargv, true);
   // Google logging.
   ::google::InitGoogleLogging(*(pargv)[0]);
+  /*
+  // glog may have not this included
   // Provide a backtrace on segfault.
   ::google::InstallFailureSignalHandler();
+  */
 }
 
 #ifdef CPU_ONLY  // CPU-only Caffe.

@@ -3,7 +3,14 @@ file(GLOB proto_files proto/*.proto)
 caffe_protobuf_generate_cpp_py(${proto_gen_folder} proto_srcs proto_hdrs proto_python ${proto_files})
 
 # include python files either to force generation
-add_library(proto STATIC ${proto_hdrs} ${proto_srcs} ${proto_python})
+if(BUILD_SHARED_LIBS)
+ add_library(proto SHARED ${proto_hdrs} ${proto_srcs} ${proto_python})
+ target_compile_options(proto PRIVATE "-DCAFFE_PROTO_API_=__declspec(dllexport)") # MSVC
+ target_link_libraries(proto ${Caffe_LINKER_LIBS})
+else()
+ add_library(proto STATIC ${proto_hdrs} ${proto_srcs} ${proto_python})
+ target_compile_options(proto PRIVATE -DCAFFE_PROTO_API_)
+endif()
 set(Caffe_LINKER_LIBS proto ${Caffe_LINKER_LIBS}) # note, crucial to prepend!
 caffe_default_properties(proto)
 
@@ -20,6 +27,11 @@ endif()
 add_library(caffe ${srcs})
 target_link_libraries(caffe proto ${Caffe_LINKER_LIBS})
 caffe_default_properties(caffe)
+if(BUILD_SHARED_LIBS)
+ target_compile_options(caffe PRIVATE "-DCAFFE_PROTO_API_=__declspec(dllimport)") # MSVC
+else()
+ target_compile_options(caffe PRIVATE -DCAFFE_PROTO_API_)
+endif()
 
 # ---[ Tests
  add_subdirectory(test)

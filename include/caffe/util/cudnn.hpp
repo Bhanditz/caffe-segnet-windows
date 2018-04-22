@@ -47,7 +47,7 @@ namespace caffe {
 namespace cudnn {
 
 template <typename Dtype> class dataType;
-template<> class dataType<float>  {
+template<> class CAFFE_API_ dataType<float>  {
  public:
   static const cudnnDataType_t type = CUDNN_DATA_FLOAT;
   static float oneval, zeroval;

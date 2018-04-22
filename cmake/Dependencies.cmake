@@ -2,6 +2,8 @@
 set(Caffe_LINKER_LIBS "")
 
 # ---[ Boost
+set(ENV{BOOST_ROOT} $ENV{Boost_DIR})
+MESSAGE(STATUS "BOOST_ROOT = $ENV{BOOST_ROOT}")
 find_package(Boost 1.46 REQUIRED COMPONENTS system thread)
 include_directories(SYSTEM ${Boost_INCLUDE_DIR})
 list(APPEND Caffe_LINKER_LIBS ${Boost_LIBRARIES})
@@ -68,7 +70,7 @@ message(STATUS "OpenCV found (${OpenCV_CONFIG_PATH})")
 # ---[ BLAS
 if(NOT APPLE)
   set(BLAS "Atlas" CACHE STRING "Selected BLAS library")
-  set_property(CACHE BLAS PROPERTY STRINGS "Atlas;Open;MKL")
+  set_property(CACHE BLAS PROPERTY STRINGS "Open;Atlas;MKL")
 
   if(BLAS STREQUAL "Atlas" OR BLAS STREQUAL "atlas")
     find_package(Atlas REQUIRED)

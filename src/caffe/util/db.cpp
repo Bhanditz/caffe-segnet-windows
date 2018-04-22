@@ -3,6 +3,12 @@
 #include <sys/stat.h>
 #include <string>
 
+// https://github.com/Rprop/caffe-segnet-windows
+#if defined(WIN32) || defined(_WINDOWS)
+# include <direct.h>
+# define mkdir(s, f) _mkdir(s)
+#endif
+
 namespace caffe { namespace db {
 
 const size_t LMDB_MAP_SIZE = 1099511627776;  // 1 TB

@@ -7,7 +7,7 @@
 
 namespace caffe {
 
-class Timer {
+class CAFFE_API_ Timer {
  public:
   Timer();
   virtual ~Timer();
@@ -37,7 +37,7 @@ class Timer {
   float elapsed_microseconds_;
 };
 
-class CPUTimer : public Timer {
+class CAFFE_API_ CPUTimer : public Timer {
  public:
   explicit CPUTimer();
   virtual ~CPUTimer() {}

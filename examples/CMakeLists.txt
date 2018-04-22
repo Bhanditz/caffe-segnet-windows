@@ -12,6 +12,12 @@ foreach(source_file ${examples_srcs})
   target_link_libraries(${name} ${Caffe_LINK})
   caffe_default_properties(${name})
 
+  if(BUILD_SHARED_LIBS)
+    target_compile_options(${name} PRIVATE "-DCAFFE_PROTO_API_=__declspec(dllimport)") # MSVC
+  else()
+    target_compile_options(${name} PRIVATE -DCAFFE_PROTO_API_)
+  endif()
+
   # set back RUNTIME_OUTPUT_DIRECTORY
   set_target_properties(${name} PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/examples/${folder}")

@@ -14,7 +14,7 @@ namespace caffe { namespace db {
 
 enum Mode { READ, WRITE, NEW };
 
-class Cursor {
+class CAFFE_API_ Cursor {
  public:
   Cursor() { }
   virtual ~Cursor() { }
@@ -27,7 +27,7 @@ class Cursor {
   DISABLE_COPY_AND_ASSIGN(Cursor);
 };
 
-class Transaction {
+class CAFFE_API_ Transaction {
  public:
   Transaction() { }
   virtual ~Transaction() { }
@@ -37,7 +37,7 @@ class Transaction {
   DISABLE_COPY_AND_ASSIGN(Transaction);
 };
 
-class DB {
+class CAFFE_API_ DB {
  public:
   DB() { }
   virtual ~DB() { }
@@ -64,7 +64,7 @@ class LevelDBCursor : public Cursor {
   leveldb::Iterator* iter_;
 };
 
-class LevelDBTransaction : public Transaction {
+class CAFFE_API_ LevelDBTransaction : public Transaction {
  public:
   explicit LevelDBTransaction(leveldb::DB* db) : db_(db) { CHECK_NOTNULL(db_); }
   virtual void Put(const string& key, const string& value) {
@@ -83,7 +83,7 @@ class LevelDBTransaction : public Transaction {
   DISABLE_COPY_AND_ASSIGN(LevelDBTransaction);
 };
 
-class LevelDB : public DB {
+class CAFFE_API_ LevelDB : public DB {
  public:
   LevelDB() : db_(NULL) { }
   virtual ~LevelDB() { Close(); }
@@ -109,7 +109,7 @@ inline void MDB_CHECK(int mdb_status) {
   CHECK_EQ(mdb_status, MDB_SUCCESS) << mdb_strerror(mdb_status);
 }
 
-class LMDBCursor : public Cursor {
+class CAFFE_API_ LMDBCursor : public Cursor {
  public:
   explicit LMDBCursor(MDB_txn* mdb_txn, MDB_cursor* mdb_cursor)
     : mdb_txn_(mdb_txn), mdb_cursor_(mdb_cursor), valid_(false) {
@@ -147,7 +147,7 @@ class LMDBCursor : public Cursor {
   bool valid_;
 };
 
-class LMDBTransaction : public Transaction {
+class CAFFE_API_ LMDBTransaction : public Transaction {
  public:
   explicit LMDBTransaction(MDB_dbi* mdb_dbi, MDB_txn* mdb_txn)
     : mdb_dbi_(mdb_dbi), mdb_txn_(mdb_txn) { }
@@ -161,7 +161,7 @@ class LMDBTransaction : public Transaction {
   DISABLE_COPY_AND_ASSIGN(LMDBTransaction);
 };
 
-class LMDB : public DB {
+class CAFFE_API_ LMDB : public DB {
  public:
   LMDB() : mdb_env_(NULL) { }
   virtual ~LMDB() { Close(); }

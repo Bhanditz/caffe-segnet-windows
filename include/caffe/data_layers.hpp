@@ -25,7 +25,7 @@ namespace caffe {
  * TODO(dox): thorough documentation for Forward and proto params.
  */
 template <typename Dtype>
-class BaseDataLayer : public Layer<Dtype> {
+class CAFFE_API_ BaseDataLayer : public Layer<Dtype> {
  public:
   explicit BaseDataLayer(const LayerParameter& param);
   // LayerSetUp: implements common data layer setup functionality, and calls
@@ -51,7 +51,7 @@ class BaseDataLayer : public Layer<Dtype> {
 };
 
 template <typename Dtype>
-class BasePrefetchingDataLayer :
+class CAFFE_API_ BasePrefetchingDataLayer :
     public BaseDataLayer<Dtype>, public InternalThread {
  public:
   explicit BasePrefetchingDataLayer(const LayerParameter& param)
@@ -79,7 +79,7 @@ class BasePrefetchingDataLayer :
 };
 
 template <typename Dtype>
-class DataLayer : public BasePrefetchingDataLayer<Dtype> {
+class CAFFE_API_ DataLayer : public BasePrefetchingDataLayer<Dtype> {
  public:
   explicit DataLayer(const LayerParameter& param)
       : BasePrefetchingDataLayer<Dtype>(param) {}
@@ -100,7 +100,7 @@ class DataLayer : public BasePrefetchingDataLayer<Dtype> {
 };
 
 template <typename Dtype>
-class DenseImageDataLayer : public BasePrefetchingDataLayer<Dtype> {
+class CAFFE_API_ DenseImageDataLayer : public BasePrefetchingDataLayer<Dtype> {
  public:
   explicit DenseImageDataLayer(const LayerParameter& param)
       : BasePrefetchingDataLayer<Dtype>(param) {}
@@ -128,7 +128,7 @@ class DenseImageDataLayer : public BasePrefetchingDataLayer<Dtype> {
  * TODO(dox): thorough documentation for Forward and proto params.
  */
 template <typename Dtype>
-class DummyDataLayer : public Layer<Dtype> {
+class CAFFE_API_ DummyDataLayer : public Layer<Dtype> {
  public:
   explicit DummyDataLayer(const LayerParameter& param)
       : Layer<Dtype>(param) {}
@@ -160,7 +160,7 @@ class DummyDataLayer : public Layer<Dtype> {
  * TODO(dox): thorough documentation for Forward and proto params.
  */
 template <typename Dtype>
-class HDF5DataLayer : public Layer<Dtype> {
+class CAFFE_API_ HDF5DataLayer : public Layer<Dtype> {
  public:
   explicit HDF5DataLayer(const LayerParameter& param)
       : Layer<Dtype>(param) {}
@@ -201,7 +201,7 @@ class HDF5DataLayer : public Layer<Dtype> {
  * TODO(dox): thorough documentation for Forward and proto params.
  */
 template <typename Dtype>
-class HDF5OutputLayer : public Layer<Dtype> {
+class CAFFE_API_ HDF5OutputLayer : public Layer<Dtype> {
  public:
   explicit HDF5OutputLayer(const LayerParameter& param)
       : Layer<Dtype>(param), file_opened_(false) {}
@@ -243,7 +243,7 @@ class HDF5OutputLayer : public Layer<Dtype> {
  * TODO(dox): thorough documentation for Forward and proto params.
  */
 template <typename Dtype>
-class ImageDataLayer : public BasePrefetchingDataLayer<Dtype> {
+class CAFFE_API_ ImageDataLayer : public BasePrefetchingDataLayer<Dtype> {
  public:
   explicit ImageDataLayer(const LayerParameter& param)
       : BasePrefetchingDataLayer<Dtype>(param) {}
@@ -270,7 +270,7 @@ class ImageDataLayer : public BasePrefetchingDataLayer<Dtype> {
  * TODO(dox): thorough documentation for Forward and proto params.
  */
 template <typename Dtype>
-class MemoryDataLayer : public BaseDataLayer<Dtype> {
+class CAFFE_API_ MemoryDataLayer : public BaseDataLayer<Dtype> {
  public:
   explicit MemoryDataLayer(const LayerParameter& param)
       : BaseDataLayer<Dtype>(param), has_new_data_(false) {}
@@ -316,7 +316,7 @@ class MemoryDataLayer : public BaseDataLayer<Dtype> {
  * TODO(dox): thorough documentation for Forward and proto params.
  */
 template <typename Dtype>
-class WindowDataLayer : public BasePrefetchingDataLayer<Dtype> {
+class CAFFE_API_ WindowDataLayer : public BasePrefetchingDataLayer<Dtype> {
  public:
   explicit WindowDataLayer(const LayerParameter& param)
       : BasePrefetchingDataLayer<Dtype>(param) {}

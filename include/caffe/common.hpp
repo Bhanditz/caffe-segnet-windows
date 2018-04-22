@@ -89,13 +89,28 @@ using std::string;
 using std::stringstream;
 using std::vector;
 
+// Temporary solution for exporting symbols
+#ifdef caffe_DYN
+# ifdef caffe_EXPORTS
+#  define CAFFE_API_ __declspec(dllexport)
+# else
+#  define CAFFE_API_ __declspec(dllimport)
+# endif
+#else
+# define CAFFE_API_
+#endif
+
+#ifndef CAFFE_PROTO_API_
+# define CAFFE_PROTO_API_ CAFFE_API_
+#endif
+
 // A global initialization function that you should call in your main function.
 // Currently it initializes google flags and google logging.
-void GlobalInit(int* pargc, char*** pargv);
+CAFFE_API_ void GlobalInit(int* pargc, char*** pargv);
 
 // A singleton class to hold common caffe stuff, such as the handler that
 // caffe is going to use for cublas, curand, etc.
-class Caffe {
+class CAFFE_API_ Caffe {
  public:
   ~Caffe();
   inline static Caffe& Get() {

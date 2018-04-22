@@ -15,7 +15,7 @@ namespace caffe {
  * given the current state of the Net parameters.
  */
 template <typename Dtype>
-class Solver {
+class CAFFE_API_ Solver {
  public:
   explicit Solver(const SolverParameter& param);
   explicit Solver(const string& param_file);
@@ -68,7 +68,7 @@ class Solver {
  *        stochastic gradient descent (SGD) with momentum.
  */
 template <typename Dtype>
-class SGDSolver : public Solver<Dtype> {
+class CAFFE_API_ SGDSolver : public Solver<Dtype> {
  public:
   explicit SGDSolver(const SolverParameter& param)
       : Solver<Dtype>(param) { PreSolve(); }
@@ -97,7 +97,7 @@ class SGDSolver : public Solver<Dtype> {
 };
 
 template <typename Dtype>
-class NesterovSolver : public SGDSolver<Dtype> {
+class CAFFE_API_ NesterovSolver : public SGDSolver<Dtype> {
  public:
   explicit NesterovSolver(const SolverParameter& param)
       : SGDSolver<Dtype>(param) {}
@@ -111,7 +111,7 @@ class NesterovSolver : public SGDSolver<Dtype> {
 };
 
 template <typename Dtype>
-class AdaGradSolver : public SGDSolver<Dtype> {
+class CAFFE_API_ AdaGradSolver : public SGDSolver<Dtype> {
  public:
   explicit AdaGradSolver(const SolverParameter& param)
       : SGDSolver<Dtype>(param) { constructor_sanity_check(); }

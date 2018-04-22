@@ -20,6 +20,12 @@
 
 #include "caffe/proto/caffe.pb.h"
 
+// https://github.com/Rprop/caffe-segnet-windows
+#if defined(WIN32) || defined(_WINDOWS)
+# include <direct.h>
+# define mkdir(s, f) _mkdir(s)
+#endif
+
 using namespace caffe;  // NOLINT(build/namespaces)
 using std::string;
 
